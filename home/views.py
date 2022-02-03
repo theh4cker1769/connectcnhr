@@ -172,15 +172,19 @@ def update_room(request, pk):
 @login_required(login_url='login_user')
 def delete_room(request, pk):
     room = Room.objects.get(id=pk)
+    topicidtes = room.topic.name
+    notopics = Room.objects.filter(topic__name=topicidtes)
 
     if request.user != room.host:
         return HttpResponse('How dare you !!!!!!')
 
     if request.method == 'POST':
+        if notopics.count() == 1:
+            room.topic.delete()
         room.delete()
         return redirect('/')
             
-    return render(request, 'delete.html', {'obj':room})
+    return render(request, 'delete.html', {'obj':room, 'notopics':notopics})
 
 
 @login_required(login_url='login_user')
