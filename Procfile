@@ -1,1 +1,1 @@
-web: gunicorn connectcnhr.wsgi --log-file -
+web: gunicorn chatroom.wsgi --log-file -
