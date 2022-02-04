@@ -32,7 +32,7 @@
 
         <ul class="topics__list">
           <li>
-            <a href="/" class="active">All <span>{{topics.count}}</span></a>
+            <a href="{% url 'index' %}" class="active">All <span>{{topics.count}}</span></a>
           </li>
           {% for topic in topics %}
           <li>
