@@ -1176,3 +1176,18 @@ a {
   bottom: 0;
   width: 100%;
 }
+
+.reply-msg .card-body{
+  background: transparent;
+  padding: 10px;
+}
+
+.room__message__reply{
+  position: static;
+  padding: 0;
+}
+
+.thread-reply {
+  margin: 0;
+  padding: 10px;
+}

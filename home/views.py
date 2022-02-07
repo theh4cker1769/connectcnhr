@@ -93,19 +93,31 @@ def room(request, pk):
     #     if i['id'] == int(pk):
     #         room = i
     room = Room.objects.get(id=pk)
-    room_messages = room.message_set.all()
+    room_messages = room.message_set.filter(parent=None)
+    room_reply = room.message_set.filter(parent__isnull=False)
     participants = room.participants.all()
 
     if request.method == 'POST':
-        message = Message.objects.create(
-            user = request.user,
-            room=room,
-            body=request.POST.get('body')
-        )
-        room.participants.add(request.user)
-        return redirect('room', pk=room.id)
+        messageId = request.POST.get('messageId')
+        if messageId == "":
+            message = Message.objects.create(
+                user = request.user,
+                room=room,
+                body=request.POST.get('body')
+            )
+            room.participants.add(request.user)
+        else:
+            message = Message.objects.create(
+                user = request.user,
+                room=room,
+                body=request.POST.get('body'),
+                parent=Message.objects.get(id=messageId)
+            )
+            room.participants.add(request.user)
 
-    context = {'room': room, 'room_messages':room_messages, 'participants': participants}
+        return redirect('room', pk=room.id)    
+
+    context = {'room': room, 'room_messages':room_messages, 'room_reply':room_reply, 'participants': participants}
     return render(request, 'room.html', context)
 
 
