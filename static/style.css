@@ -62,6 +62,14 @@ a {
   text-decoration: none;
 }
 
+.btn {
+  font-size: 1.5rem;
+}
+
+.btn:hover{
+  color: #0a58ca;
+}
+
 /*========== components ==========*/
 .container {
   max-width: 120rem;
@@ -1173,6 +1181,7 @@ a {
   padding: 18px;
   background-color: var(--color-dark);
   margin-top: 10px;
+  margin-bottom: 0;
   bottom: 0;
   width: 100%;
 }
